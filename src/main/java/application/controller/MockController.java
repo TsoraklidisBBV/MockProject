@@ -2,6 +2,7 @@ package application.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,9 @@ public class MockController {
             value = "/evaluation" ,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public String getMockRest(@RequestParam String url) {
-        return mockApplicationImp.getMockLogic(url);
+    public ResponseEntity<String> getMockRest(@RequestParam String url) {
+
+         return ResponseEntity.ok().body(mockApplicationImp.getMockLogic(url));
       }
 }
 

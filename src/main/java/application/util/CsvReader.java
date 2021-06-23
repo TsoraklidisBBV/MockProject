@@ -13,7 +13,6 @@ import java.util.List;
 
 public class CsvReader {
 
-
     public static List<MockModel> csvReader()
         {
             String line = "";
@@ -24,18 +23,16 @@ public class CsvReader {
                 BufferedReader br = new BufferedReader(new FileReader(
                          "C:\\Users\\tsoraklidis\\IdeaProjects\\MockProject\\src\\main\\resources\\MockData.csv"
                     ));
-                while ((line = br.readLine()) != null)   //returns a Boolean value
+                while ((line = br.readLine()) != null)
                 {
-                    String[] speakers = line.split(splitBy);    // use comma as separator
+                    String[] speakers = line.split(splitBy);
                     mockModelList.add(populateModel(
                             speakers[0],speakers[1], new SimpleDateFormat("dd-MM-yyyy").parse(speakers[2]), Integer.parseInt(speakers[3])
                     ));
                 }
             }
-            catch (IOException e)
+            catch (IOException | ParseException e)
             {
-                e.printStackTrace();
-            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
