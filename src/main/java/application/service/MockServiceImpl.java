@@ -5,46 +5,50 @@ import application.util.CsvReader;
 import com.google.gson.JsonObject;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class MockServiceImpl implements MockService {
 
-    public String getMockLogic(String url){
+    //TODO:NEED TO STORE EACH SESSION
+    public String getMockLogic(URL url){
         JsonObject json = new JsonObject();
-
-        json.addProperty("mostSpeeches", findSpeaker(CsvReader.csvReader()));
-        json.addProperty("mostSecurity", findSecurity(CsvReader.csvReader()));
-        json.addProperty("leastWordy", "null");
-
+        List<MockModel> modelList = CsvReader.csvReader(url);
+        json.addProperty("mostSpeeches", findSpeaker(modelList)) ;
+        json.addProperty("mostSecurity", findSecurity(modelList));
+        json.addProperty("leastWordy",  findWords(modelList));
         return json.toString();
     }
 
    public String findSpeaker(List<MockModel> modelList){
        List<String> names = new ArrayList<>();
-
-       for (MockModel mockModel : modelList) {
-           names.add(mockModel.getName());
-       }
-
+       for (MockModel mockModel : modelList) names.add(mockModel.getName());
        return mostCommon(names);
     }
 
    public String findSecurity(List<MockModel> modelList){
       String mostSecurity = null;
-
-       for (MockModel mockModel : modelList) {
-           if (mockModel.getTitle().equals("Innere Sicherheit")) {
-               mostSecurity = mockModel.getName();
-           }
-       }
-
-       return mostSecurity;
+      for (MockModel mockModel : modelList)
+           mostSecurity = (mockModel.getTitle().equals("Innere Sicherheit")) ? "null" : mockModel.getName();
+      return mostSecurity;
    }
 
+   public String findWords(List<MockModel> modelList){
+       Map<String, Integer> map = new HashMap<>();
+
+       for(MockModel mockModel: modelList)
+       {
+           map.put(mockModel.getName(),mockModel.getWords());
+           System.out.println("my name is" + map);
+       }
+
+       return "red";
+   }
 
    public static <T> T mostCommon(List<T> list) {
         Map<T, Integer> map = new HashMap<>();

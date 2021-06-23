@@ -1,5 +1,7 @@
 package application.service;
 
+import java.net.URL;
+
 public interface MockService {
-    String getMockLogic(String url);
+    String getMockLogic(URL url);
 }
