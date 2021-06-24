@@ -1,9 +1,8 @@
 package application.util;
 
-import application.model.MockModel;
+import application.model.SpeakerModel;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -15,18 +14,18 @@ import java.util.List;
 
 public class CsvReader {
 
-    public static List<MockModel> csvReader(URL url)
+    public static List<SpeakerModel> csvReader(URL url)
         {
             String line = "";
             String splitBy = ",";
-            List<MockModel> mockModelList = new ArrayList<MockModel>();
+            List<SpeakerModel> speakerModelList = new ArrayList<SpeakerModel>();
             try
             {
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
                 while ((line = br.readLine()) != null)
                 {
                     String[] speakers = line.split(splitBy);
-                    mockModelList.add(populateModel(
+                    speakerModelList.add(populateModel(
                             speakers[0],speakers[1], new SimpleDateFormat("dd-MM-yyyy").parse(speakers[2]), Integer.parseInt(speakers[3])
                     ));
                 }
@@ -36,22 +35,19 @@ public class CsvReader {
                 e.printStackTrace();
             }
 
-            return mockModelList;
+            return speakerModelList;
         }
 
 
-    public static MockModel populateModel(String name, String title, Date date, int words) {
-        MockModel mockModel = new MockModel();
+    public static SpeakerModel populateModel(String name, String title, Date date, int words) {
+        SpeakerModel speakerModel = new SpeakerModel();
 
-        mockModel.setName(name);
-        mockModel.setTitle(title);
-        mockModel.setDate(date);
-        mockModel.setWords(words);
+        speakerModel.setName(name);
+        speakerModel.setTitle(title);
+        speakerModel.setDate(date);
+        speakerModel.setWords(words);
 
-        List<MockModel> test = new ArrayList<>();
-        test.add(mockModel);
-
-        return  mockModel;
+        return speakerModel;
     }
 }
 
