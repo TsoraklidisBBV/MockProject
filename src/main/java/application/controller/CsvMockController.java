@@ -14,6 +14,7 @@ import java.io.File;
 @RestController
 @AllArgsConstructor
 public class CsvMockController {
+
     @RequestMapping(
             method = RequestMethod.GET,
             value =  "/report/{dataName}" ,
@@ -21,13 +22,12 @@ public class CsvMockController {
     )
     public ResponseEntity generateReport(@PathVariable(value = "dataName") String reportName) {
         //TODO: classpath resource
-        File file = new File("C:\\Users\\tsoraklidis\\IdeaProjects\\MockProject\\src\\main\\resources\\"+reportName+".csv");
+        File file = new File("src/main/resources/"+reportName+".csv");
 
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" + reportName + ".csv")
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("text/csv"))
                 .body(new FileSystemResource(file));
-
     }
 }

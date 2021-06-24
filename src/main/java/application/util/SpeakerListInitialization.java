@@ -1,6 +1,8 @@
 package application.util;
 
 import application.model.SpeakerModel;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,25 +14,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CsvReader {
+public class SpeakerListInitialization {
 
-    public static List<SpeakerModel> csvReader(URL url)
+    public static List<SpeakerModel> getSpeakerList(URL url)
         {
-            String line = "";
-            String splitBy = ",";
+            String[] nextRecord;
             List<SpeakerModel> speakerModelList = new ArrayList<SpeakerModel>();
             try
             {
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-                while ((line = br.readLine()) != null)
+                CSVReader csvReader = new CSVReader(br);
+                while ((nextRecord = csvReader.readNext()) != null)
                 {
-                    String[] speakers = line.split(splitBy);
                     speakerModelList.add(populateModel(
-                            speakers[0],speakers[1], new SimpleDateFormat("dd-MM-yyyy").parse(speakers[2]), Integer.parseInt(speakers[3])
+                            nextRecord[0],nextRecord[1], new SimpleDateFormat("dd-MM-yyyy").parse(nextRecord[2]), Integer.parseInt(nextRecord[3])
                     ));
                 }
             }
-            catch (IOException | ParseException e)
+            catch (IOException | ParseException | CsvValidationException e)
             {
                 e.printStackTrace();
             }

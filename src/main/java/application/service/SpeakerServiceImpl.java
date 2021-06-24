@@ -2,7 +2,7 @@ package application.service;
 
 import application.model.QueryResult;
 import application.model.SpeakerModel;
-import application.util.CsvReader;
+import application.util.SpeakerListInitialization;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
@@ -15,16 +15,23 @@ import java.util.Optional;
 @Service
 public class SpeakerServiceImpl implements SpeakerService {
 
-    public QueryResult getMockLogic(URL url){
-        List<SpeakerModel> modelList = CsvReader.csvReader(url); //TODO: use library for cvsreader
-        return queryResultResult(findSpeaker(modelList),findSecurity(modelList),findWords(modelList));
-    }
+   public QueryResult getMockLogic(URL url){
+        List<SpeakerModel> modelList = SpeakerListInitialization.getSpeakerList(url);
+        return queryResult(findSpeaker(modelList),findSecurity(modelList),findWords(modelList));
+   }
 
    private String findSpeaker(List<SpeakerModel> modelList){
+       if(modelList.isEmpty()){
+           return null;
+       }
+
+
        List<String> names = new ArrayList<>();
        for (SpeakerModel speakerModel : modelList){
+
            names.add(speakerModel.getName());
        }
+
        return mostCommon(names);
     }
 
@@ -60,13 +67,13 @@ public class SpeakerServiceImpl implements SpeakerService {
        Optional<String> resultName =
                map.entrySet().stream().sorted(
                        (entrySet1, entrySet2) -> entrySet1.getValue().compareTo(entrySet2.getValue())
-               ).map(entrySet -> entrySet.getKey()).findFirst();
+               ).map(Map.Entry::getKey).findFirst();
 
        return resultName.get();
    }
 
    //TODO: make T generic to  MockModel
-   private static <T> T mostCommon(List<T> list) {
+   private  <T> T mostCommon(List<T> list) {
         Map<T, Integer> map = new HashMap<>();
 
         for (T t : list) {
@@ -84,7 +91,7 @@ public class SpeakerServiceImpl implements SpeakerService {
         return max.getKey();
    }
 
-    private static QueryResult queryResultResult (String mostSpeeches, String mostSecurity, String speakerWithLeastWords) {
+    private QueryResult queryResult(String mostSpeeches, String mostSecurity, String speakerWithLeastWords) {
         QueryResult queryResult = new QueryResult();
 
         queryResult.setMostSpeeches(mostSpeeches);
