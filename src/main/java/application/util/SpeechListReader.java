@@ -28,13 +28,18 @@ public class SpeechListReader {
         List<SpeechModel> speakerModelList = new ArrayList<SpeechModel>();
         try
         {
+            //does this need a try catch ?
             BufferedReader br = csvFileReaderUrlService.getBufferedReaderFromUrl(url);
+            if (br == null){
+                return  speakerModelList;
+            }
+
             CSVReader csvReader = new CSVReader(br);
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null)
             {
                 SpeechModel populateModel = populateModel(
-                        nextRecord[0],nextRecord[1], new SimpleDateFormat("dd-MM-yyyy").parse(nextRecord[2]), Integer.parseInt(nextRecord[3])
+                        nextRecord[0],nextRecord[1], new SimpleDateFormat("yyyy-mm-dd").parse(nextRecord[2]), Integer.parseInt(nextRecord[3])
                 );
                 speakerModelList.add(populateModel);
             }
