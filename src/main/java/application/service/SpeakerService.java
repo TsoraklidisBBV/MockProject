@@ -52,11 +52,20 @@ public class SpeakerService {
             return null;
         }
 
-        String mostSecurity = null;
+        Map<String, Integer> map = new HashMap<>();
+
+        List<String> speakers = new ArrayList<>();
         for (SpeechModel speakerModel : modelList) {
-            mostSecurity = (speakerModel.getTitle().equals("Innere Sicherheit")) ? null : speakerModel.getSpeaker();
+            if(speakerModel.getTitle().equals("Innere Sicherheit")) {
+                speakers.add(speakerModel.getSpeaker());
+            }
         }
-        return mostSecurity;
+
+        if(speakers.isEmpty()){
+            return null;
+        }
+
+        return mostCommon(speakers);
     }
 
     private String findWords(List<SpeechModel> modelList) {

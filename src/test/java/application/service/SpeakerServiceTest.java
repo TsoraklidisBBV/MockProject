@@ -69,6 +69,57 @@ class SpeakerServiceTest {
     }
 
     @Test
+    public void testPositiveMostSecurity() throws MalformedURLException, ParseException {
+
+        // arrange two speaker with same number of speeches
+        List<SpeechModel> answer = new ArrayList<>();
+        answer.add(new SpeechModel("Heinz Erhard", "Innere Sicherheit", new Date(),3232));
+        answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
+        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+
+        URL testUrl = new URL("http://localhost:8080");
+        // act
+        QueryResult result = classUnderTest.getStatistics(testUrl);
+
+        // assert
+        assertEquals("Heinz Erhard" ,result.getMostSecurity());
+    }
+
+    @Test
+    public void testManySpeakerHasTheTitleMostSecurity() throws MalformedURLException, ParseException {
+
+        // arrange two speaker with same number of speeches
+        List<SpeechModel> answer = new ArrayList<>();
+        answer.add(new SpeechModel("Heinz Erhard", "Innere Sicherheit", new Date(),3232));
+        answer.add(new SpeechModel("willi Mill", "Innere Sicherheit", new Date(),3232));
+        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+
+        URL testUrl = new URL("http://localhost:8080");
+        // act
+        QueryResult result = classUnderTest.getStatistics(testUrl);
+
+        // assert
+        assertEquals(null ,result.getMostSecurity());
+    }
+
+    @Test
+    public void testNoSpeakerHasTheTitleMostSecurity() throws MalformedURLException, ParseException {
+
+        // arrange two speaker with same number of speeches
+        List<SpeechModel> answer = new ArrayList<>();
+        answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),3232));
+        answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
+        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+
+        URL testUrl = new URL("http://localhost:8080");
+        // act
+        QueryResult result = classUnderTest.getStatistics(testUrl);
+
+        // assert
+        assertEquals(null ,result.getMostSecurity());
+    }
+
+    @Test
     public void testPositiveLeastWordy() throws MalformedURLException, ParseException {
 
         // arrange two speaker with same number of speeches
@@ -94,6 +145,22 @@ class SpeakerServiceTest {
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
+        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+
+        URL testUrl = new URL("http://localhost:8080");
+        // act
+        QueryResult result = classUnderTest.getStatistics(testUrl);
+
+        // assert
+        assertEquals(null ,result.getLeastWordy());
+    }
+
+    @Test
+    public void testListIsOnlyOneElementForLeastWordy() throws MalformedURLException, ParseException {
+
+        // arrange two speaker with same number of words
+        List<SpeechModel> answer = new ArrayList<>();
+        answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
         Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
 
         URL testUrl = new URL("http://localhost:8080");
