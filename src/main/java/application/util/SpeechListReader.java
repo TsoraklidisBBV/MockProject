@@ -6,7 +6,6 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,14 +22,14 @@ public class SpeechListReader {
     @Autowired
     private CSVFileReaderUrlService csvFileReaderUrlService;
 
-    public List<SpeechModel> getSpeakerList(List<URL> urlList)
+    public List<SpeechModel> getSpeakerList(List<URL> urlList) throws IOException
     {
         List<SpeechModel> speakerModelList = new ArrayList<SpeechModel>();
         try {
             for (URL url:urlList) {
                 BufferedReader br = csvFileReaderUrlService.getBufferedReaderFromUrl(url);
                 if (br == null) {
-                    return speakerModelList;
+                    throw new IOException("File Not Found");
                 }
 
                 CSVReader csvReader = new CSVReader(br);
@@ -43,7 +42,7 @@ public class SpeechListReader {
                 }
             }
          }
-        catch (IOException | ParseException | CsvValidationException e)
+        catch ( ParseException | CsvValidationException e)
         {
             e.printStackTrace();
         }

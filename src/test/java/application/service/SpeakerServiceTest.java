@@ -3,7 +3,7 @@ package application.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ class SpeakerServiceTest {
     SpeechListReader speechListReader;
 
     @Test
-    public void testPositive() throws MalformedURLException, ParseException {
+    public void testPositive() throws IOException, ParseException {
 
         // arrange
         List<SpeechModel> answer = new ArrayList<>();
@@ -54,7 +54,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testNegativeMostSpeeches() throws MalformedURLException, ParseException {
+    public void testNegativeMostSpeeches() throws IOException, ParseException {
 
         // arrange two speaker with same number of speeches
         List<SpeechModel> answer = new ArrayList<>();
@@ -73,7 +73,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testPositiveMostSecurity() throws MalformedURLException, ParseException {
+    public void testPositiveMostSecurity() throws IOException, ParseException {
 
         // arrange two speaker with same number of speeches
         List<SpeechModel> answer = new ArrayList<>();
@@ -92,7 +92,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testManySpeakerHasTheTitleMostSecurity() throws MalformedURLException, ParseException {
+    public void testManySpeakerHasTheTitleMostSecurity() throws IOException, ParseException {
 
         // arrange two speaker with same number of speeches
         List<SpeechModel> answer = new ArrayList<>();
@@ -111,7 +111,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testNoSpeakerHasTheTitleMostSecurity() throws MalformedURLException, ParseException {
+    public void testNoSpeakerHasTheTitleMostSecurity() throws IOException, ParseException {
 
         // arrange two speaker with same number of speeches
         List<SpeechModel> answer = new ArrayList<>();
@@ -130,7 +130,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testPositiveLeastWordy() throws MalformedURLException, ParseException {
+    public void testPositiveLeastWordy() throws IOException, ParseException {
 
         // arrange two speaker with same number of speeches
         List<SpeechModel> answer = new ArrayList<>();
@@ -150,7 +150,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testTwoSpeakerHaveTheLeastWordy() throws MalformedURLException, ParseException {
+    public void testTwoSpeakerHaveTheLeastWordy() throws IOException, ParseException {
 
         // arrange two speaker with same number of words
         List<SpeechModel> answer = new ArrayList<>();
@@ -170,7 +170,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testListIsOnlyOneElementForLeastWordy() throws MalformedURLException, ParseException {
+    public void testListIsOnlyOneElementForLeastWordy() throws IOException, ParseException {
 
         // arrange two speaker with same number of words
         List<SpeechModel> answer = new ArrayList<>();
@@ -188,7 +188,7 @@ class SpeakerServiceTest {
     }
 
     @Test
-    public void testListOfTheLeastWordyIsEmpty() throws MalformedURLException, ParseException {
+    public void testListOfTheLeastWordyIsEmpty() throws IOException, ParseException {
         List<SpeechModel> answer = new ArrayList<>();
         Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 

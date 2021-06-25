@@ -1,6 +1,7 @@
 package application.controller;
 
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,11 @@ public class CsvMockController {
     )
     public ResponseEntity generateReport(@PathVariable(value = "dataName") String dataName) {
         File file = new File("src/main/resources/"+dataName+".csv");
+
+        if(file.length() == 0){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" + dataName + ".csv")
                 .contentLength(file.length())

@@ -1,5 +1,6 @@
 package application.service;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public class SpeakerService {
     @Autowired
     SpeechListReader speechListReader;
 
-    public QueryResult getStatistics(List<URL> urlList) throws ParseException {
+    public QueryResult getStatistics(List<URL> urlList) throws ParseException, IOException {
         List<SpeechModel> modelList = speechListReader.getSpeakerList(urlList);
         return queryResult(findSpeakerWithSpeeches(modelList), findSecurity(modelList), findWords(modelList));
     }

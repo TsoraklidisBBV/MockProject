@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,18 +44,5 @@ public class SpeechListReaderTest {
 		//assert
 		assertEquals("Alexander Abel",result.get(0).getSpeaker());
 		assertEquals(4,result.size());
-	}
-
-	@Test
-	public void testNegativeTest() throws IOException {
-		BufferedReader brValueMock = null;
-		Mockito.when(csvFileReaderUrlServiceMock.getBufferedReaderFromUrl(any(URL.class))).thenReturn(brValueMock);
-
-		List<URL> urlList = new ArrayList<>();
-		URL testUrl = new URL("http://localhost:8080");
-		urlList.add(testUrl);
-		//act
-		List<SpeechModel> result = classUnderTest.getSpeakerList(urlList);
-		assertTrue(result.isEmpty());
 	}
 }
