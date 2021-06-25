@@ -1,6 +1,5 @@
 package application.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 
 @RestController
-@AllArgsConstructor
 public class CsvMockController {
 
     @RequestMapping(
@@ -20,12 +18,12 @@ public class CsvMockController {
             value =  "/report/{dataName}" ,
             produces = "text/csv"
     )
-    public ResponseEntity generateReport(@PathVariable(value = "dataName") String reportName) {
+    public ResponseEntity generateReport(@PathVariable(value = "dataName") String dataName) {
         //TODO: classpath resource
-        File file = new File("src/main/resources/"+reportName+".csv");
+        File file = new File("src/main/resources/"+dataName+".csv");
 
         return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=" + reportName + ".csv")
+                .header("Content-Disposition", "attachment; filename=" + dataName + ".csv")
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("text/csv"))
                 .body(new FileSystemResource(file));

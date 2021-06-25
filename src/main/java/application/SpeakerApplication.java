@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication()
-public class MockApplication {
+public class SpeakerApplication {
     public static void main(String[] args) {
-        new SpringApplication(MockApplication.class).run(args);
+        new SpringApplication(SpeakerApplication.class).run(args);
     }
 }
