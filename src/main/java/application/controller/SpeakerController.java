@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URL;
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 public class SpeakerController {
@@ -25,9 +26,8 @@ public class SpeakerController {
         this.speakerService = mockApplicationImp;
     }
 
-    // TODO: ACCEPT MULTIPLE URL PARA AT ONCE, write exceptions and tests
     @RequestMapping(method = RequestMethod.GET, value = "/evaluation", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<QueryResult> getMockRest(@RequestParam URL url) throws ParseException {
+    public ResponseEntity<QueryResult> getMockRest(@RequestParam List<URL> url) throws ParseException {
         QueryResult statistics = speakerService.getStatistics(url);
 
         return ResponseEntity.ok().body(statistics);

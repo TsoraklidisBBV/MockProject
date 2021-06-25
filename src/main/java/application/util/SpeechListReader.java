@@ -23,27 +23,26 @@ public class SpeechListReader {
     @Autowired
     private CSVFileReaderUrlService csvFileReaderUrlService;
 
-    public List<SpeechModel> getSpeakerList(URL url)
+    public List<SpeechModel> getSpeakerList(List<URL> urlList)
     {
         List<SpeechModel> speakerModelList = new ArrayList<SpeechModel>();
-        try
-        {
-            //does this need a try catch ?
-            BufferedReader br = csvFileReaderUrlService.getBufferedReaderFromUrl(url);
-            if (br == null){
-                return  speakerModelList;
-            }
+        try {
+            for (URL url:urlList) {
+                BufferedReader br = csvFileReaderUrlService.getBufferedReaderFromUrl(url);
+                if (br == null) {
+                    return speakerModelList;
+                }
 
-            CSVReader csvReader = new CSVReader(br);
-            String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null)
-            {
-                SpeechModel populateModel = populateModel(
-                        nextRecord[0],nextRecord[1], new SimpleDateFormat("yyyy-mm-dd").parse(nextRecord[2]), Integer.parseInt(nextRecord[3])
-                );
-                speakerModelList.add(populateModel);
+                CSVReader csvReader = new CSVReader(br);
+                String[] nextRecord;
+                while ((nextRecord = csvReader.readNext()) != null) {
+                    SpeechModel populateModel = populateModel(
+                            nextRecord[0], nextRecord[1], new SimpleDateFormat("yyyy-MM-dd").parse(nextRecord[2]), Integer.parseInt(nextRecord[3])
+                    );
+                    speakerModelList.add(populateModel);
+                }
             }
-        }
+         }
         catch (IOException | ParseException | CsvValidationException e)
         {
             e.printStackTrace();

@@ -14,10 +14,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -36,9 +36,11 @@ public class SpeechListReaderTest {
 		BufferedReader brValueMock = new BufferedReader(new FileReader("src/main/resources/MockData.csv"));
 		Mockito.when(csvFileReaderUrlServiceMock.getBufferedReaderFromUrl(any(URL.class))).thenReturn(brValueMock);
 
+		List<URL> urlList = new ArrayList<>();
 		URL testUrl = new URL("http://localhost:8080");
+		urlList.add(testUrl);
 		//act
-		List<SpeechModel> result = classUnderTest.getSpeakerList(testUrl);
+		List<SpeechModel> result = classUnderTest.getSpeakerList(urlList);
 
 		//assert
 		assertEquals("Alexander Abel",result.get(0).getSpeaker());
@@ -50,9 +52,11 @@ public class SpeechListReaderTest {
 		BufferedReader brValueMock = null;
 		Mockito.when(csvFileReaderUrlServiceMock.getBufferedReaderFromUrl(any(URL.class))).thenReturn(brValueMock);
 
+		List<URL> urlList = new ArrayList<>();
 		URL testUrl = new URL("http://localhost:8080");
+		urlList.add(testUrl);
 		//act
-		List<SpeechModel> result = classUnderTest.getSpeakerList(testUrl);
+		List<SpeechModel> result = classUnderTest.getSpeakerList(urlList);
 		assertTrue(result.isEmpty());
 	}
 }

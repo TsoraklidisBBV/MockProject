@@ -41,11 +41,13 @@ class SpeakerServiceTest {
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),3232));
         answer.add(new SpeechModel("Heinz Erhard", "ganz lustig", new Date(),323232));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals("Heinz Erhard",result.getMostSpeeches());
@@ -58,11 +60,13 @@ class SpeakerServiceTest {
         List<SpeechModel> answer = new ArrayList<>();
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),3232));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals(null ,result.getMostSpeeches());
@@ -75,11 +79,13 @@ class SpeakerServiceTest {
         List<SpeechModel> answer = new ArrayList<>();
         answer.add(new SpeechModel("Heinz Erhard", "Innere Sicherheit", new Date(),3232));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals("Heinz Erhard" ,result.getMostSecurity());
@@ -92,11 +98,13 @@ class SpeakerServiceTest {
         List<SpeechModel> answer = new ArrayList<>();
         answer.add(new SpeechModel("Heinz Erhard", "Innere Sicherheit", new Date(),3232));
         answer.add(new SpeechModel("willi Mill", "Innere Sicherheit", new Date(),3232));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals(null ,result.getMostSecurity());
@@ -109,11 +117,13 @@ class SpeakerServiceTest {
         List<SpeechModel> answer = new ArrayList<>();
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),3232));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals(null ,result.getMostSecurity());
@@ -127,11 +137,13 @@ class SpeakerServiceTest {
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),3232));
         answer.add(new SpeechModel("Heinz Erhard", "ganz lustig", new Date(),323232));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals("willi Mill" ,result.getLeastWordy());
@@ -145,11 +157,13 @@ class SpeakerServiceTest {
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
         answer.add(new SpeechModel("willi Mill", "nicht lustig", new Date(),32));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals(null ,result.getLeastWordy());
@@ -161,11 +175,13 @@ class SpeakerServiceTest {
         // arrange two speaker with same number of words
         List<SpeechModel> answer = new ArrayList<>();
         answer.add(new SpeechModel("Heinz Erhard", "lustig", new Date(),16));
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals("Heinz Erhard" ,result.getLeastWordy());
@@ -174,11 +190,13 @@ class SpeakerServiceTest {
     @Test
     public void testListOfTheLeastWordyIsEmpty() throws MalformedURLException, ParseException {
         List<SpeechModel> answer = new ArrayList<>();
-        Mockito.when(speechListReader.getSpeakerList(any(URL.class))).thenReturn(answer);
+        Mockito.when(speechListReader.getSpeakerList(any(List.class))).thenReturn(answer);
 
+        List<URL> urlList = new ArrayList<>();
         URL testUrl = new URL("http://localhost:8080");
+        urlList.add(testUrl);
         // act
-        QueryResult result = classUnderTest.getStatistics(testUrl);
+        QueryResult result = classUnderTest.getStatistics(urlList);
 
         // assert
         assertEquals(null ,result.getLeastWordy());

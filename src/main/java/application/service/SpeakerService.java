@@ -25,8 +25,8 @@ public class SpeakerService {
     @Autowired
     SpeechListReader speechListReader;
 
-    public QueryResult getStatistics(URL url) throws ParseException {
-        List<SpeechModel> modelList = speechListReader.getSpeakerList(url);
+    public QueryResult getStatistics(List<URL> urlList) throws ParseException {
+        List<SpeechModel> modelList = speechListReader.getSpeakerList(urlList);
         return queryResult(findSpeakerWithSpeeches(modelList), findSecurity(modelList), findWords(modelList));
     }
 
@@ -51,8 +51,6 @@ public class SpeakerService {
         if (modelList.isEmpty()) {
             return null;
         }
-
-        Map<String, Integer> map = new HashMap<>();
 
         List<String> speakers = new ArrayList<>();
         for (SpeechModel speakerModel : modelList) {

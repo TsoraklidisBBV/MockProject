@@ -19,9 +19,7 @@ public class CsvMockController {
             produces = "text/csv"
     )
     public ResponseEntity generateReport(@PathVariable(value = "dataName") String dataName) {
-        //TODO: classpath resource
         File file = new File("src/main/resources/"+dataName+".csv");
-
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" + dataName + ".csv")
                 .contentLength(file.length())
