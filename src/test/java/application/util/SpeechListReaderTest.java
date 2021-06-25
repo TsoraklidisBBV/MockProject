@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,6 +42,7 @@ public class SpeechListReaderTest {
 
 		//assert
 		assertEquals("Alexander Abel",result.get(0).getSpeaker());
+		assertEquals(4,result.size());
 	}
 
 	@Test
@@ -50,10 +52,7 @@ public class SpeechListReaderTest {
 
 		URL testUrl = new URL("http://localhost:8080");
 		//act
-		assertThrows(NullPointerException.class,
-				()->{
-					List<SpeechModel> result = classUnderTest.getSpeakerList(testUrl);
-				});
+		List<SpeechModel> result = classUnderTest.getSpeakerList(testUrl);
+		assertTrue(result.isEmpty());
 	}
-
 }
